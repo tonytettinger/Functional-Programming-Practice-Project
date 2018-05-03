@@ -19,30 +19,29 @@ let listOfCats = [{
 }]
 
 let currentCatCounter = 0;
+let catClickCountArray = [0,0,0,0,0];
 let clickCounter = function () {
     currentCatCounter++;
     counterElement.innerText = currentCatCounter;
-    console.log('click');
+    console.log(currentCatCounter);
 }
 
 console.log(listOfCats[0].name);
-let eventAdder = function() {
-    for(let i=0; i<listOfCats.length; i++) {
-            let currentListElement = 'list' + i;
-            let currentCat = document.getElementById(currentListElement);
-            let currentCatName = listOfCats[i].name;
-            let currentCatPicture = listOfCats[i].website;
-            let currentCatCounter = 0;
-            currentCat.addEventListener('click', function(catNameCopy, currentCatCounterCopy) {
-                return function(){
-                catName.innerText = catNameCopy;    
+let eventAdder = function () {
+    for (let i = 0; i < listOfCats.length; i++) {
+        let currentListElement = 'list' + i;
+        let currentCat = document.getElementById(currentListElement);
+        let currentCatName = listOfCats[i].name;
+        let currentCatPicture = listOfCats[i].website;
+        let currentCatCounterTemp = catClickCountArray[i];
+        currentCat.addEventListener('click', function (catNameCopy, catCounterTempCopy) {
+            return function () {
+                catName.innerText = catNameCopy;
                 catPhoto.src = currentCatPicture;
-                currentCatCounterCopy++;
-                counterElement.innerText = currentCatCounterCopy; 
-                }
-            }(currentCatName, currentCatCounter));
-            
-    }
+                currentCatCounter=catClickCountArray[i];
+            };
+        }(currentCatName, currentCatCounterTemp));
+    };
 };
-
 eventAdder();
+catPhoto.addEventListener('click', clickCounter);
